@@ -1,3 +1,0 @@
-/home/tibor/Desktop/physics-engine/cmake-build-debug/CMakeFiles/physics_engine.dir
-/home/tibor/Desktop/physics-engine/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/tibor/Desktop/physics-engine/cmake-build-debug/CMakeFiles/rebuild_cache.dir
