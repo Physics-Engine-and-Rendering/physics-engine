@@ -1,10 +1,9 @@
-#include "Math/math.hpp"
 #include <iostream>
+#include "Math/math.hpp"
 
 using namespace Math;
 
 int main() {
-    std::cout << "Hello, Physics Engine!" << std::endl;
     f32vec2 vec1 = {1, 2};
     f32vec2 vec2 = {3, 4};
     f32vec2 add = vec1 + vec2;
@@ -17,7 +16,7 @@ int main() {
     std::cout << sub.x << " " << sub.y << '\n';
     std::cout << mul.x << " " << mul.y << '\n';
     std::cout << div.x << " " << div.y << '\n';
-    std::cout <<
+    std::cout << result << '\n';
 
     return 0;
 }
