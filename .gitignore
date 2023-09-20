@@ -31,12 +31,7 @@
 *.out
 *.app
 
-nejde mi inicializovat cmake-build-debug do ignore - kdyz to pushnu, tak to tam porad je
-to jsem taky zkousel
-
-what
-
+ja bych to udelal, aspon na neco, je to simple
 
 # CMAKE
 cmake-build-debug/
-.idea/

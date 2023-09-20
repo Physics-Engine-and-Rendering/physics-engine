@@ -3,7 +3,6 @@
 #include <array>
 #include <cassert>
 #include <cstdint>
-#include <Eigen/Eigen>
 
 namespace Math {
     /* basic data types */
