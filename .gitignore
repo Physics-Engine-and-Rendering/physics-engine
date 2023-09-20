@@ -35,3 +35,5 @@ ja bych to udelal, aspon na neco, je to simple
 
 # CMAKE
 cmake-build-debug/
+build/
+.cache/
