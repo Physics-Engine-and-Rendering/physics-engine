@@ -18,5 +18,8 @@ int main() {
     std::cout << div.x << " " << div.y << '\n';
     std::cout << result << '\n';
 
+    auto a = cross(f32vec3{1, 2, 2}, f32vec3{2, 1, 1});
+    //auto a = cross(f32vec2{1, 2}, f32vec2{2, 1});
+
     return 0;
 }

@@ -238,48 +238,78 @@ namespace Math {
 
     template <typename T, usize M, usize N, usize P>
     constexpr inline auto operator*(detail::GenericMatrix<T, M, N> const & a, detail::GenericMatrix<T, N, P> const & b) {
-        auto c = detail::GenericMatrix<T, M, P>{};
+        detail::GenericMatrix<T, M, P> result = {};
         for (usize i = 0; i < M; ++i) {
             for (usize j = 0; j < P; ++j) {
-                c[i][j] = 0;
+                result[i][j] = 0;
                 for (usize k = 0; k < N; ++k) {
-                    c[i][j] += a[i][k] * b[k][j];
+                    result[i][j] += a[i][k] * b[k][j];
                 }
             }
         }
-        return c;
+        return result;
     }
 
     template <typename T, usize M, usize N>
     constexpr inline auto operator*(detail::GenericMatrix<T, M, N> const & a, detail::GenericVector<T, N> const & v) {
-        auto c = detail::GenericVector<T, N>{};
+        detail::GenericVector<T, N> result = {};
         for (usize i = 0; i < M; ++i) {
-            c[i] = 0;
+            result[i] = 0;
             for (usize k = 0; k < N; ++k) {
-                c[i] += a[i][k] * v[k];
+                result[i] += a[i][k] * v[k];
             }
         }
-        return c;
+        return result;
     }
 
     template <typename T, usize N, usize P>
     constexpr inline auto operator*(detail::GenericVector<T, N> const & v, detail::GenericMatrix<T, N, P> const & b) {
-        auto c = detail::GenericVector<std::remove_cv_t<T>, N>{};
+        detail::GenericVector<std::remove_cv_t<T>, N> result = {};
         for (usize j = 0; j < P; ++j) {
-            c[j] = 0;
+            result[j] = 0;
             for (usize k = 0; k < N; ++k) {
-                c[j] += v[k] * b[k][j];
+                result[j] += v[k] * b[k][j];
             }
         }
-        return c;
+        return result;
     }
 
     /* mathematic functions */
     template <typename T, usize N>
-    constexpr inline auto dot(detail::GenericVector<T, N> const &a, detail::GenericVector<T, N> const &b) -> T {
-        T result;
+    constexpr inline auto dot(detail::GenericVector<T, N> const & a, detail::GenericVector<T, N> const & b) -> T {
+        T result = {};
         for (usize i = 0; i < N; i++) {
             result += a[i] * b[i];
+        }
+        return result;
+    }
+
+    template <typename T, usize N>
+    constexpr inline auto cross(detail::GenericVector<T, N> const & a, detail::GenericVector<T, N> const & b) -> detail::GenericVector<T, N> {
+        static_assert(N == 3, "cross product only for vec3");
+
+        detail::GenericVector<T, N> result = {};
+        result.x = a.y * b.z - a.z * b.y;
+        result.y = a.z * b.x - a.x * b.z;
+        result.z = a.x * b.y - a.y * b.x;
+        return result;
+    }
+    
+    template <typename T, usize N>
+    constexpr inline auto length(detail::GenericVector<T, N> const & v) -> T {
+        T result = {};
+        for (usize i = 0; i < N; i++) {
+            result += v[i];
+        }
+        return result;
+    }
+
+    template <typename T, usize N>
+    constexpr inline auto normalize(detail::GenericVector<T, N> const & v) -> detail::GenericVector<T, N> {
+        detail::GenericVector<T, N> result = v;
+        T inverse_length = static_cast<T>(1) / length(v);
+        for (usize i = 0; i < N; i++) {
+            result[i] *= inverse_length;
         }
         return result;
     }
