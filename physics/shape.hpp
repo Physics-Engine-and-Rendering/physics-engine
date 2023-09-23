@@ -1,4 +1,4 @@
-#include <Eigen/Eigen>
+#include "../math/math.hpp"
 
 class Shape {
 public:
@@ -6,10 +6,10 @@ public:
         SHAPE_SPHERE,
     };
     virtual shapeType_t GetType() const = 0;
-    virtual Eigen::Vector3f GetCenterOfMass() const {return m_centerOfMass;}
+    virtual Vec3 GetCenterOfMass() const {return m_centerOfMass;}
 
 protected:
-    Eigen::Vector3f m_centerOfMass;
+    Vec3 m_centerOfMass;
 };
 
 
