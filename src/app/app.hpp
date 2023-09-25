@@ -1,11 +1,13 @@
 #pragma once
 #include <daxa/daxa.hpp>
 #include <daxa/utils/pipeline_manager.hpp>
+#include <daxa/utils/imgui.hpp>
 using namespace daxa::types;
 
 #include "window.hpp"
 #include "camera.hpp"
 #include "model.hpp"
+#include "../physics/scene.hpp"
 
 struct App {
     App();
@@ -30,4 +32,8 @@ struct App {
 
     f32 delta_time = 0.016f;
     std::chrono::time_point<std::chrono::steady_clock> last_time_point = {};
+
+    daxa::ImGuiRenderer imGuiRenderer = {};
+
+    std::unique_ptr<Scene> scene;
 };

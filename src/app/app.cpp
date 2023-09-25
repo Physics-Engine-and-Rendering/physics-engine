@@ -1,5 +1,6 @@
 #include "app.hpp"
-#include "../physics/scene.hpp"
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
 
 App::App() : window{800, 600, "physics-engine"},
              instance{daxa::create_instance({})},
@@ -42,23 +43,30 @@ App::App() : window{800, 600, "physics-engine"},
             .push_constant_size = sizeof(Push),
         }).value();
 
-        depth_image = device.create_image({
-            .format = daxa::Format::D32_SFLOAT,
-            .size = { window.get_width(), window.get_height(), 1 },
-            .usage = daxa::ImageUsageFlagBits::DEPTH_STENCIL_ATTACHMENT,
-        });
+    depth_image = device.create_image({
+        .format = daxa::Format::D32_SFLOAT,
+        .size = { window.get_width(), window.get_height(), 1 },
+        .usage = daxa::ImageUsageFlagBits::DEPTH_STENCIL_ATTACHMENT,
+    });
+
+    ImGui::CreateContext();
+    ImGui_ImplGlfw_InitForVulkan(window.glfw_handle, true);
+    imGuiRenderer = daxa::ImGuiRenderer({
+        .device = device,
+        .format = swapchain.get_format(),
+    });
+
+    scene->Initialize();
 }
 
 App::~App() {
     device.wait_idle();
     device.collect_garbage();
     device.destroy_image(depth_image);
+    ImGui_ImplGlfw_Shutdown();
 }
 
 auto App::run() -> i32 {
-
-    Scene scene;
-    scene.Initialize();
 
     while (!window.window_state->close_requested) {
         auto new_time_point = std::chrono::steady_clock::now();
@@ -79,7 +87,7 @@ auto App::run() -> i32 {
         }
 
         update();
-        scene.Update(delta_time);
+        scene->Update(delta_time);
 
         daxa::CommandList cmd_list = device.create_command_list({.name = "my command list"});
         daxa::ImageId swapchain_image = swapchain.acquire_next_image();
@@ -119,7 +127,7 @@ auto App::run() -> i32 {
         });
         cmd_list.set_pipeline(*pipeline);
 
-        for(auto & body : scene.m_bodies) {
+        for(auto & body : scene->m_bodies) {
             glm::mat4 model_mat = glm::translate(glm::mat4{1.0f}, *reinterpret_cast<glm::vec3*>(&body.m_position)) * glm::scale(glm::mat4{1.0f}, glm::vec3{(dynamic_cast<ShapeSphere*>(body.m_shape))->m_radius});
             glm::mat4 mvp = controlled_camera.camera.get_vp() * model_mat;
 
@@ -153,6 +161,8 @@ auto App::run() -> i32 {
 
         cmd_list.end_renderpass();
 
+        imGuiRenderer.record_commands(ImGui::GetDrawData(), cmd_list, swapchain_image, window.get_width(), window.get_height());
+
         cmd_list.pipeline_barrier_image_transition({
             .dst_access = daxa::AccessConsts::TRANSFER_WRITE,
             .src_layout = daxa::ImageLayout::TRANSFER_DST_OPTIMAL,
@@ -180,4 +190,17 @@ auto App::run() -> i32 {
 
 void App::update() {
     controlled_camera.update(window, delta_time);
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    ImGui::Begin("Test");
+    ImGui::Text("Hello, World!");
+    ImGui::Text("Camera position: x: %f y: %f z: %f", controlled_camera.position.x,
+                    controlled_camera.position.y, controlled_camera.position.z);
+
+
+
+    ImGui::End();
+
+    ImGui::Render();
 }

@@ -1,5 +1,5 @@
 {
-  "name": "stellar-engine",
+  "name": "physics-engine",
   "version": "0.1.0",
   "dependencies": [
     {
@@ -26,10 +26,10 @@
   ],
   "vcpkg-configuration": {
     "overlay-ports": [
-      "/home/lukas/dev/repos/Daxa/cmake/vcpkg-port",
-      "/home/lukas/dev/repos/Daxa/cmake/vcpkg-overlay-ports/dxc",
-      "/home/lukas/dev/repos/Daxa/cmake/vcpkg-overlay-ports/glfw3",
-      "/home/lukas/dev/repos/Daxa/cmake/vcpkg-overlay-ports/fsr2"
+      "/home/tibor/dev/Daxa/cmake/vcpkg-port",
+      "/home/tibor/dev/Daxa/cmake/vcpkg-overlay-ports/dxc",
+      "/home/tibor/dev/Daxa/cmake/vcpkg-overlay-ports/glfw3",
+      "/home/tibor/dev/Daxa/cmake/vcpkg-overlay-ports/fsr2"
     ]
   }
 }
