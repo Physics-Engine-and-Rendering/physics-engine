@@ -20,7 +20,7 @@ layout(location = 0) in f32vec2 in_uv;
 layout(location = 0) out f32vec4 color;
 
 void main() {
-    color = f32vec4(1.0);
+    color = f32vec4(push.color, 1.0);
 }
 
 #endif

@@ -26,6 +26,8 @@ struct App {
 
     std::unique_ptr<Model> sphere = {};
 
+    daxa::ImageId depth_image = {};
+
     f32 delta_time = 0.016f;
     std::chrono::time_point<std::chrono::steady_clock> last_time_point = {};
 };

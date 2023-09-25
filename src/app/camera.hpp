@@ -16,7 +16,7 @@ using namespace daxa::types;
 
 struct Camera3D {
     f32 fov = 90.0f, aspect = 1.0f;
-    f32 near_clip = 0.1f, far_clip = 1000.0f;
+    f32 near_clip = 0.1f, far_clip = 10000.0f;
     glm::mat4 proj_mat{};
     glm::mat4 view_mat{};
 

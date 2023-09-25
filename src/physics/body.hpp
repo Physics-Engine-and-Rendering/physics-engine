@@ -14,6 +14,7 @@ public:
     Vec3 m_linearVelocity;
     float m_invMass;
     Shape *m_shape;
+    Vec3 m_color;
 
     Vec3 GetCenterOfMassWorldSpace() const;
     Vec3 GetCenterOfMassModelSpace() const;

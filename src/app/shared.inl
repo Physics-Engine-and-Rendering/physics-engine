@@ -34,6 +34,7 @@ DAXA_DECL_BUFFER_PTR(Vertex)
 struct Push {
     daxa_f32mat4x4 mvp;
     daxa_BufferPtr(Vertex) vertices;
+    daxa_f32vec3 color;
 };
 
 struct Primitive {

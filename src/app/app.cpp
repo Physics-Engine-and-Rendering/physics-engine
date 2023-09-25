@@ -41,9 +41,18 @@ App::App() : window{800, 600, "physics-engine"},
             },
             .push_constant_size = sizeof(Push),
         }).value();
+
+        depth_image = device.create_image({
+            .format = daxa::Format::D32_SFLOAT,
+            .size = { window.get_width(), window.get_height(), 1 },
+            .usage = daxa::ImageUsageFlagBits::DEPTH_STENCIL_ATTACHMENT,
+        });
 }
 
 App::~App() {
+    device.wait_idle();
+    device.collect_garbage();
+    device.destroy_image(depth_image);
 }
 
 auto App::run() -> i32 {
@@ -60,6 +69,13 @@ auto App::run() -> i32 {
         if (window.window_state->resize_requested) {
             controlled_camera.camera.resize(static_cast<i32>(window.get_width()), static_cast<i32>(window.get_height()));
             window.window_state->resize_requested = false;
+
+            device.destroy_image(depth_image);
+            depth_image = device.create_image({
+                .format = daxa::Format::D32_SFLOAT,
+                .size = { window.get_width(), window.get_height(), 1 },
+                .usage = daxa::ImageUsageFlagBits::DEPTH_STENCIL_ATTACHMENT,
+            });
         }
 
         update();
@@ -80,31 +96,38 @@ auto App::run() -> i32 {
             .image_id = swapchain_image,
         });
 
+        cmd_list.pipeline_barrier_image_transition({
+            .src_access = daxa::AccessConsts::TRANSFER_WRITE,
+            .src_layout = daxa::ImageLayout::UNDEFINED,
+            .dst_layout = daxa::ImageLayout::ATTACHMENT_OPTIMAL,
+            .image_slice = device.info_image_view(depth_image.default_view()).slice,
+            .image_id = depth_image,
+        });
+
         cmd_list.begin_renderpass( daxa::RenderPassBeginInfo {
             .color_attachments = { daxa::RenderAttachmentInfo {
                 .image_view = swapchain_image.default_view(),
                 .load_op = daxa::AttachmentLoadOp::CLEAR,
                 .clear_value = std::array<f32, 4>{0.2f, 0.4f, 1.0f, 1.0f},
             }},
-            // .depth_attachment = {{
-            //     .image_view = uses.depth_target.view(),
-            //     .load_op = daxa::AttachmentLoadOp::CLEAR,
-            //     .clear_value = daxa::DepthValue{1.0f, 0},
-            // }},
+            .depth_attachment = {{
+                .image_view = depth_image.default_view(),
+                .load_op = daxa::AttachmentLoadOp::CLEAR,
+                .clear_value = daxa::DepthValue{1.0f, 0},
+            }},
             .render_area = {.x = 0, .y = 0, .width = window.get_width(), .height = window.get_height()},
         });
         cmd_list.set_pipeline(*pipeline);
 
-        for(auto& body : scene.m_bodies) {
-            ShapeSphere* shape = reinterpret_cast<ShapeSphere*>(&body.m_shape);
-            glm::mat4 model_mat = glm::translate(glm::mat4{1.0f}, *reinterpret_cast<glm::vec3*>(&body.m_position)) * glm::scale(glm::mat4{1.0f}, glm::vec3{shape->m_radius});
-
+        for(auto & body : scene.m_bodies) {
+            glm::mat4 model_mat = glm::translate(glm::mat4{1.0f}, *reinterpret_cast<glm::vec3*>(&body.m_position)) * glm::scale(glm::mat4{1.0f}, glm::vec3{(dynamic_cast<ShapeSphere*>(body.m_shape))->m_radius});
             glm::mat4 mvp = controlled_camera.camera.get_vp() * model_mat;
 
             for(auto& primitive : sphere->primitives) {
                 cmd_list.push_constant(Push {
                     .mvp = *reinterpret_cast<f32mat4x4*>(&mvp),
                     .vertices = device.get_device_address(sphere->vertex_buffer),
+                    .color = *reinterpret_cast<f32vec3*>(&body.m_color)
                 });
 
                 if(primitive.index_count > 0) {
@@ -140,19 +163,14 @@ auto App::run() -> i32 {
 
         cmd_list.complete();
 
-        const auto &acquire_semaphore = swapchain.get_acquire_semaphore();
-        const auto &present_semaphore = swapchain.get_present_semaphore();
-        const auto &gpu_timeline = swapchain.get_gpu_timeline_semaphore();
-        const auto cpu_timeline = swapchain.get_cpu_timeline_value();
-
         device.submit_commands({
-            .command_lists = {cmd_list},
-            .wait_binary_semaphores = {acquire_semaphore},
-            .signal_binary_semaphores = {present_semaphore},
-            .signal_timeline_semaphores = {{gpu_timeline, cpu_timeline}},
+            .command_lists = { cmd_list },
+            .wait_binary_semaphores = { swapchain.get_acquire_semaphore() },
+            .signal_binary_semaphores = { swapchain.get_present_semaphore() },
+            .signal_timeline_semaphores = {{ swapchain.get_gpu_timeline_semaphore(), swapchain.get_cpu_timeline_value() }},
         });
         device.present_frame({
-            .wait_binary_semaphores = {present_semaphore},
+            .wait_binary_semaphores = { swapchain.get_present_semaphore() },
             .swapchain = swapchain,
         });
     }
@@ -162,15 +180,4 @@ auto App::run() -> i32 {
 
 void App::update() {
     controlled_camera.update(window, delta_time);
-
-    std::cout << "camera position: " << controlled_camera.position.x << " " << controlled_camera.position.y << " " << controlled_camera.position.z << std::endl;
-
-    // glm::mat4 inverse_projection_matrix = glm::inverse(controlled_camera.camera.proj_mat);
-    // glm::mat4 inverse_view_matrix = glm::inverse(controlled_camera.camera.view_mat);
-
-    // this->context.shader_global_block.globals.camera_projection_matrix = *reinterpret_cast<f32mat4x4*>(&controlled_camera.camera.proj_mat);
-    // this->context.shader_global_block.globals.camera_inverse_projection_matrix = *reinterpret_cast<f32mat4x4*>(&inverse_projection_matrix);
-    // this->context.shader_global_block.globals.camera_view_matrix = *reinterpret_cast<f32mat4x4*>(&controlled_camera.camera.view_mat);
-    // this->context.shader_global_block.globals.camera_inverse_view_matrix = *reinterpret_cast<f32mat4x4*>(&inverse_view_matrix);
-    // this->context.shader_global_block.globals.resolution = { static_cast<i32>(window.get_width()), static_cast<i32>(window.get_height()) };
 }

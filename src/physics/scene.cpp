@@ -1,4 +1,6 @@
 #include "scene.hpp"
+#include <iostream>
+
 
 void Scene::Update(const float dt_sec) {
     for (int i = 0; i < m_bodies.size(); i++) {
@@ -19,11 +21,13 @@ void Scene::Initialize() {
     body.m_orientation = Quat(0, 0, 0, 1);
     body.m_invMass = 1.0f;
     body.m_shape = new ShapeSphere(1.0f);
+    body.m_color = Vec3(1.0);
     m_bodies.push_back(body);
 
     body.m_position = Vec3(0, -1000, 0);
     body.m_orientation = Quat(0, 0, 0, 1);
     body.m_invMass = 0.0f;
     body.m_shape = new ShapeSphere(1000.0f);
+    body.m_color = Vec3(1.0, 0.0, 0.0);
     m_bodies.push_back(body);
 }
