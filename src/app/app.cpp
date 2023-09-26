@@ -56,6 +56,9 @@ App::App() : window{800, 600, "physics-engine"},
         .format = swapchain.get_format(),
     });
 
+    ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
+    scene = std::make_unique<Scene>();
     scene->Initialize();
 }
 
@@ -158,7 +161,6 @@ auto App::run() -> i32 {
             }
         }
 
-
         cmd_list.end_renderpass();
 
         imGuiRenderer.record_commands(ImGui::GetDrawData(), cmd_list, swapchain_image, window.get_width(), window.get_height());
@@ -193,12 +195,30 @@ void App::update() {
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    ImGui::Begin("Test");
-    ImGui::Text("Hello, World!");
+    ImGui::Begin("Default");
     ImGui::Text("Camera position: x: %f y: %f z: %f", controlled_camera.position.x,
                     controlled_camera.position.y, controlled_camera.position.z);
 
+    for (int i = 0; i < scene->m_bodies.size(); i++) {
+        if (ImGui::Button(std::string("Sphere " + std::to_string(i)).c_str())) {
+            selectedBody = &scene->m_bodies[i];
+        }
+    }
 
+    ImGui::End();
+
+    ImGui::Begin("Object Information");
+
+    if (selectedBody != nullptr) {
+        ImGui::Text("Sphere position: x: %f y: %f z: %f", selectedBody->m_position.x,
+                    selectedBody->m_position.y, selectedBody->m_position.z);
+        ImGui::Text("Sphere orientation: x: %f y: %f z: %f w: %f", selectedBody->m_orientation.x,
+                    selectedBody->m_orientation.y, selectedBody->m_orientation.z, selectedBody->m_orientation.w);
+        ImGui::Text("Sphere linear velocity: x: %f y: %f z: %f", selectedBody->m_linearVelocity.x,
+                    selectedBody->m_linearVelocity.y, selectedBody->m_linearVelocity.z);
+        ImGui::Text("Sphere mass: %f", 1 / selectedBody->m_invMass);
+        ImGui::Text("Sphere color: x: %f y: %f z: %f", selectedBody->m_color.x, selectedBody->m_color.y, selectedBody->m_color.z);
+    }
 
     ImGui::End();
 

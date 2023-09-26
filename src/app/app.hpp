@@ -36,4 +36,5 @@ struct App {
     daxa::ImGuiRenderer imGuiRenderer = {};
 
     std::unique_ptr<Scene> scene;
+    Body* selectedBody = nullptr;
 };

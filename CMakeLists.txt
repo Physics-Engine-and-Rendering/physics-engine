@@ -20,8 +20,9 @@ add_executable(physics-engine
     src/main.cpp 
     src/physics/body.cpp 
     src/physics/scene.cpp
-    src/app/app.cpp 
-    src/app/camera.cpp 
+    src/physics/intersect.cpp
+    src/app/app.cpp
+    src/app/camera.cpp
     src/app/window.cpp
     src/app/model.cpp
     src/app/texture.cpp

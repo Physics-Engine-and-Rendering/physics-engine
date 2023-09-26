@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakePresetLoader"><![CDATA[{
+  "useNewFormat": true
+}]]></component>
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="physics-engine" targetName="physics-engine" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" GENERATION_OPTIONS="-DCMAKE_TOOLCHAIN_FILE=/home/tibor/dev/vcpkg/scripts/buildsystems/vcpkg.cmake" />
+      <configuration PROFILE_NAME="clang-x86_64-windows-msvc" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/build" />
+      <configuration PROFILE_NAME="cl-x86_64-windows-msvc" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/build" />
+      <configuration PROFILE_NAME="gcc-x86_64-linux-gnu" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/build" />
+      <configuration PROFILE_NAME="clang-x86_64-linux-gnu" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/build" />
+      <configuration PROFILE_NAME="clang-x86_64-windows-msvc - clang-x86_64-windows-msvc-debug" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/build" />
+      <configuration PROFILE_NAME="clang-x86_64-windows-msvc - clang-x86_64-windows-msvc-relwithdebinfo" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/build" />
+      <configuration PROFILE_NAME="clang-x86_64-windows-msvc - clang-x86_64-windows-msvc-release" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/build" />
+      <configuration PROFILE_NAME="cl-x86_64-windows-msvc - cl-x86_64-windows-msvc-debug" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/build" />
+      <configuration PROFILE_NAME="cl-x86_64-windows-msvc - cl-x86_64-windows-msvc-relwithdebinfo" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/build" />
+      <configuration PROFILE_NAME="cl-x86_64-windows-msvc - cl-x86_64-windows-msvc-release" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/build" />
+      <configuration PROFILE_NAME="gcc-x86_64-linux-gnu - gcc-x86_64-linux-gnu-debug" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/build" />
+      <configuration PROFILE_NAME="gcc-x86_64-linux-gnu - gcc-x86_64-linux-gnu-relwithdebinfo" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/build" />
+      <configuration PROFILE_NAME="gcc-x86_64-linux-gnu - gcc-x86_64-linux-gnu-release" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/build" />
+      <configuration PROFILE_NAME="clang-x86_64-linux-gnu - clang-x86_64-linux-gnu-debug" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/build" />
+      <configuration PROFILE_NAME="clang-x86_64-linux-gnu - clang-x86_64-linux-gnu-relwithdebinfo" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/build" />
+      <configuration PROFILE_NAME="clang-x86_64-linux-gnu - clang-x86_64-linux-gnu-release" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/build" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2d6c4c3a-f4c0-42ae-8734-d928e10a1a42" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compile_commands.json" beforeDir="false" afterPath="$PROJECT_DIR$/compile_commands.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/physics/body.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/physics/body.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/physics/intersect.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/physics/intersect.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/physics/scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/physics/scene.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/physics/scene.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/physics/scene.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/physics/shape.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/physics/shape.hpp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2023" />
+    <option name="minorVersion" value="2.2" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2VvxdbSRC4RghfRU9w7IJ3Cq9bD" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.advertisement.text.overridden": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "/home/tibor/Desktop/physics-engine/cmake-build-debug",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "CMakeSettings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cmake-build-debug" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="physics-engine" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="physics-engine" TARGET_NAME="physics-engine" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="physics-engine" RUN_TARGET_NAME="physics-engine">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2d6c4c3a-f4c0-42ae-8734-d928e10a1a42" name="Changes" comment="" />
+      <created>1695730444313</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1695730444313</updated>
+      <workItem from="1695730446199" duration="2722000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VCPKGProject">
+    <isAutomaticEditVcpkgJson value="false" />
+    <isAutomaticCheckingOnLaunch value="false" />
+    <isAutomaticFoundErrors value="true" />
+    <isAutomaticFoundErrors value="true" />
+  </component>
+</project>

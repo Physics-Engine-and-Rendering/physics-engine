@@ -10,7 +10,7 @@ void Scene::Update(const float dt_sec) {
     }
 
     for (int i = 0; i < m_bodies.size(); i++) {
-        for (int j = 0; j < m_bodies.size(); j++) {
+        for (int j = i + 1; j < m_bodies.size(); j++) {
             Body *bodyA = &m_bodies[i];
             Body *bodyB = &m_bodies[j];
             if (0.0f == bodyA->m_invMass && 0.0f == bodyB->m_invMass) {
@@ -31,7 +31,7 @@ void Scene::Update(const float dt_sec) {
 
 void Scene::Initialize() {
     Body body;
-    body.m_position = Vec3(0, 10, 0);
+    body.m_position = Vec3(0, 100, 0);
     body.m_orientation = Quat(0, 0, 0, 1);
     body.m_invMass = 1.0f;
     body.m_shape = new ShapeSphere(1.0f);
