@@ -1,5 +1,15 @@
 #include "scene.hpp"
 #include "intersect.hpp"
+#include "contact_t.h"
+
+void ResolveContact(contact_t& contact) {
+    Body* bodyA = contact.bodyA;
+    Body* bodyB = contact.bodyB;
+
+    bodyA->m_linearVelocity.Zero();
+    bodyB->m_linearVelocity.Zero();
+}
+
 
 void Scene::Update(const float dt_sec) {
     for (int i = 0; i < m_bodies.size(); i++) {
@@ -16,9 +26,9 @@ void Scene::Update(const float dt_sec) {
             if (0.0f == bodyA->m_invMass && 0.0f == bodyB->m_invMass) {
                 continue;
             }
-            if (Intersect(bodyA, bodyB)) {
-                bodyA->m_linearVelocity.Zero();
-                bodyB->m_linearVelocity.Zero();
+            contact_t contact;
+            if (Intersect(bodyA, bodyB, contact)) {
+                ResolveContact(contact);
             }
         }
     }

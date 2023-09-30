@@ -21,11 +21,13 @@ add_executable(physics-engine
     src/physics/body.cpp 
     src/physics/scene.cpp
     src/physics/intersect.cpp
+    src/physics/contact_t.h
     src/app/app.cpp
     src/app/camera.cpp
     src/app/window.cpp
     src/app/model.cpp
     src/app/texture.cpp
+        src/physics/contact_t.h
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
