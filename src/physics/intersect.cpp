@@ -1,5 +1,5 @@
 #include "intersect.hpp"
-#include "contact_t.h"
+#include "contact.h"
 
 bool Intersect(Body* bodyA, Body* bodyB, contact_t& contact) {
     contact.bodyA = bodyA;
