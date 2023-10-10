@@ -9,10 +9,14 @@ void ResolveContact(contact_t& contact) {
     const float invMassA = bodyA->m_invMass;
     const float invMassB = bodyB->m_invMass;
 
+    const float elasticityA = bodyA->m_elasticity;
+    const float elasticityB = bodyB->m_elasticity;
+    const float elasticity = elasticityA * elasticityB;
+
     // Calculate the collision impulse
     const Vec3& n = contact.normal;
     const Vec3 vab; bodyA->m_linearVelocity - bodyB->m_linearVelocity;
-    const float ImpulseJ = -2.0f * vab.Dot(n) / (invMassA + invMassB);
+    const float ImpulseJ = -(1.0f + elasticity) * vab.Dot(n) / (invMassA + invMassB);
     const Vec3 vectorImpulseJ = n * ImpulseJ;
 
     bodyA->ApplyImpulseLinear(vectorImpulseJ * 1.0f);
@@ -25,6 +29,25 @@ void ResolveContact(contact_t& contact) {
     const Vec3 ds = contact.ptOnB_WorldSpace - contact.ptOnA_WorldSpace;
     bodyA->m_position += ds * tA;
     bodyB->m_position -= ds * tB;
+}
+
+
+void Scene::Initialize() {
+    Body body;
+    body.m_position = Vec3(0, 100, 0);
+    body.m_orientation = Quat(0, 0, 0, 1);
+    body.m_invMass = 1.0f;
+    body.m_elasticity = 0.5f;
+    body.m_shape = new ShapeSphere(1.0f);
+    body.m_color = Vec3(1.0);
+    m_bodies.push_back(body);
+
+    body.m_position = Vec3(0, -1000, 0);
+    body.m_orientation = Quat(0, 0, 0, 1);
+    body.m_invMass = 0.0f;
+    body.m_shape = new ShapeSphere(1000.0f);
+    body.m_color = Vec3(1.0, 0.0, 0.0);
+    m_bodies.push_back(body);
 }
 
 
@@ -56,19 +79,3 @@ void Scene::Update(const float dt_sec) {
 }
 
 
-void Scene::Initialize() {
-    Body body;
-    body.m_position = Vec3(0, 100, 0);
-    body.m_orientation = Quat(0, 0, 0, 1);
-    body.m_invMass = 1.0f;
-    body.m_shape = new ShapeSphere(1.0f);
-    body.m_color = Vec3(1.0);
-    m_bodies.push_back(body);
-
-    body.m_position = Vec3(0, -1000, 0);
-    body.m_orientation = Quat(0, 0, 0, 1);
-    body.m_invMass = 0.0f;
-    body.m_shape = new ShapeSphere(1000.0f);
-    body.m_color = Vec3(1.0, 0.0, 0.0);
-    m_bodies.push_back(body);
-}
